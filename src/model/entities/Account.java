@@ -1,12 +1,14 @@
 package model.entities;
 
+import exceptions.BusinessException;
+
 public class Account {
-	
+
 	private Integer number;
 	private String holder;
 	private Double balance;
 	private Double withDrawLimit;
-	
+
 	public Account(Integer number, String holder, Double balance, Double withDraw) {
 		super();
 		this.number = number;
@@ -43,26 +45,26 @@ public class Account {
 	public void setWithDraw(Double withDraw) {
 		this.withDrawLimit = withDraw;
 	}
-	
-	public void deposit (Double amount) {
+
+	public void deposit (double amount) {
 		if (amount < 0.0 ){
 			System.out.println("error in your request");
 		} else {
 			balance+= amount; 
 		}
-	}
-	
-	public void withdraw (Double amount){
-		if(amount<balance && amount < 0 && amount > withDrawLimit) {
-			System.out.println("sorry, there was a error in your request.");
+	} 
+
+	public void withdraw (double amount){
+		if(amount<getBalance() &&  amount>getWithDraw()) {
+			throw new BusinessException ("sorry, there was a error in your request.");
 		}else{
 			balance-= amount;	
 		}
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }
